@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shared Workspace</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Join / Landing Screen -->
+  <div id="join-screen" class="screen">
+    <div class="join-card">
+      <h1>Shared Workspace</h1>
+      <p>Enter a workspace name and your display name to get started. Share the workspace name with your coworker so you can collaborate.</p>
+      <form id="join-form">
+        <label for="workspace-name">Workspace Name</label>
+        <input type="text" id="workspace-name" placeholder="e.g. project-alpha" required />
+        <label for="display-name">Your Name</label>
+        <input type="text" id="display-name" placeholder="e.g. Amy" required />
+        <button type="submit">Join Workspace</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Workspace Screen -->
+  <div id="workspace-screen" class="screen hidden">
+    <header>
+      <div class="header-left">
+        <h1 id="workspace-title"></h1>
+        <span id="user-badge" class="badge"></span>
+      </div>
+      <button id="leave-btn" class="btn-secondary">Leave</button>
+    </header>
+
+    <main>
+      <!-- To-Do Panel -->
+      <section class="panel" id="todo-panel">
+        <h2>To-Do List</h2>
+        <form id="todo-form" class="add-form">
+          <input type="text" id="todo-input" placeholder="Add a task..." required />
+          <button type="submit">Add</button>
+        </form>
+        <ul id="todo-list"></ul>
+      </section>
+
+      <!-- Notes Panel -->
+      <section class="panel" id="notes-panel">
+        <h2>Notes</h2>
+        <form id="note-form" class="add-form">
+          <input type="text" id="note-title-input" placeholder="Note title..." required />
+          <button type="submit">Add Note</button>
+        </form>
+        <div id="notes-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Note Edit Modal -->
+  <div id="note-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-note-title">Edit Note</h3>
+        <button id="modal-close" class="btn-icon">&times;</button>
+      </div>
+      <textarea id="modal-note-content" rows="12" placeholder="Write your note here..."></textarea>
+      <div class="modal-footer">
+        <button id="modal-save" class="btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
