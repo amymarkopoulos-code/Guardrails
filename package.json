@@ -5,10 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "tunnel": "node server.js --tunnel"
   },
   "dependencies": {
     "express": "^4.18.2",
+    "localtunnel": "^2.0.2",
     "uuid": "^9.0.0"
   }
 }

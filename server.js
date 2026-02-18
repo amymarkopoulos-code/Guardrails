@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
+const localtunnel = require("localtunnel");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -156,6 +157,30 @@ app.delete("/api/workspaces/:name/notes/:id", (req, res) => {
 
 // --- Start server ---
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Shared Workspace running at http://localhost:${PORT}`);
+
+  // Open a public tunnel if --tunnel flag is passed or TUNNEL env var is set
+  if (process.argv.includes("--tunnel") || process.env.TUNNEL === "true") {
+    try {
+      const subdomain = process.env.TUNNEL_SUBDOMAIN || undefined;
+      const tunnel = await localtunnel({ port: PORT, subdomain });
+
+      console.log("\n--------------------------------------------");
+      console.log("Public URL (share this with your coworker):");
+      console.log(`  ${tunnel.url}`);
+      console.log("--------------------------------------------\n");
+
+      tunnel.on("close", () => {
+        console.log("Tunnel closed.");
+      });
+
+      tunnel.on("error", (err) => {
+        console.error("Tunnel error:", err.message);
+      });
+    } catch (err) {
+      console.error("Failed to open tunnel:", err.message);
+      console.log("The server is still running locally at http://localhost:" + PORT);
+    }
+  }
 });

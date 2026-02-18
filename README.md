@@ -9,6 +9,7 @@ A lightweight collaborative workspace where you and your coworkers can share to-
 - **Workspace Rooms** - Join a workspace by name. Anyone with the same workspace name sees the same data.
 - **Auto-Sync** - The UI polls every 3 seconds so both users see updates without refreshing.
 - **Persistent Storage** - Data is saved to a local JSON file so it survives server restarts.
+- **Public Tunnel** - Share across different networks with a single command. No port forwarding or deployment needed.
 
 ## Getting Started
 
@@ -20,15 +21,31 @@ npm install
 
 ### 2. Start the server
 
+**Local only** (same network):
+
 ```bash
 npm start
 ```
 
-The app runs at **http://localhost:3000** by default. Set the `PORT` environment variable to change this.
+**With public tunnel** (different networks):
+
+```bash
+npm run tunnel
+```
+
+This prints a public URL like `https://xyz.loca.lt` in the terminal. Send that URL to your coworker and you're both connected.
+
+You can also request a stable subdomain:
+
+```bash
+TUNNEL_SUBDOMAIN=my-team npm run tunnel
+```
+
+The app runs on port **3000** by default. Set the `PORT` environment variable to change this.
 
 ### 3. Share with your coworker
 
-Both you and your coworker should open the app in a browser. Enter the **same workspace name** (e.g. `project-alpha`) and your own display name, then click **Join Workspace**.
+Both of you open the app (either `http://localhost:3000` or the public tunnel URL). Enter the **same workspace name** (e.g. `project-alpha`) and your own display name, then click **Join Workspace**.
 
 You'll both see the same to-do list and notes, updated in real time.
 
